@@ -69,8 +69,12 @@ public class TrackZone : MonoBehaviour {
 	}
 
 	public void Export() {
-		FileInfo fi = new FileInfo(path);
-		path = EditorUtility.SaveFilePanel("Export Track Zones", fi.DirectoryName, fi.Name, "taz");
+		if (String.IsNullOrEmpty(path)) {
+			path = EditorUtility.SaveFilePanel("Export Track Zones", "", "", "taz");
+		} else {
+			FileInfo fi = new FileInfo(path);
+			path = EditorUtility.SaveFilePanel("Export Track Zones", fi.DirectoryName, fi.Name, "taz");
+		}
 		Save();
 	}
 

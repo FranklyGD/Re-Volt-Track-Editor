@@ -51,8 +51,12 @@ public class Position : MonoBehaviour {
 	}
 
 	public void Export() {
-		FileInfo fi = new FileInfo(path);
-		path = EditorUtility.SaveFilePanel("Export Position", fi.DirectoryName, fi.Name, "pan");
+		if (String.IsNullOrEmpty(path)) {
+			path = EditorUtility.SaveFilePanel("Export Position", "", "", "pan");
+		} else {
+			FileInfo fi = new FileInfo(path);
+			path = EditorUtility.SaveFilePanel("Export Position", fi.DirectoryName, fi.Name, "pan");
+		}
 		Save();
 	}
 

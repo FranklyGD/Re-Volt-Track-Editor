@@ -115,8 +115,12 @@ public class AI : MonoBehaviour {
 	}
 
 	public void Export() {
-		FileInfo fi = new FileInfo(path);
-		path = EditorUtility.SaveFilePanel("Export AI", fi.DirectoryName, fi.Name, "fan");
+		if (String.IsNullOrEmpty(path)) {
+			path = EditorUtility.SaveFilePanel("Export AI", "", "", "fan");
+		} else {
+			FileInfo fi = new FileInfo(path);
+			path = EditorUtility.SaveFilePanel("Export AI", fi.DirectoryName, fi.Name, "fan");
+		}
 		Save();
 	}
 
