@@ -35,7 +35,7 @@ public class AIEditor : Editor {
 				Gizmos.DrawLine(leftMiddle, leftMiddle - (middleSegmentForward + middleSegmentRight) * .5f);
 				Gizmos.DrawLine(leftMiddle, leftMiddle - (middleSegmentForward - middleSegmentRight) * .5f);
 				Gizmos.DrawLine(leftMiddle - (middleSegmentForward + middleSegmentRight) * .5f, leftMiddle - (middleSegmentForward - middleSegmentRight) * .5f);
-				if (aiSegment.walls.HasFlag(AI.AISegment.Wall.Left)) {
+				if ((aiSegment.walls & AI.AISegment.Wall.Left) > 0) {
 					Gizmos.color = new Color(1, .5f, .75f);
 					Gizmos.DrawLine(aiSegment.left + Vector3.up, aiData.segments[connection].left + Vector3.up);
 				}
@@ -45,7 +45,7 @@ public class AIEditor : Editor {
 				Gizmos.DrawLine(rightMiddle, rightMiddle - (middleSegmentForward - middleSegmentRight) * .5f);
 				Gizmos.DrawLine(rightMiddle, rightMiddle - (middleSegmentForward + middleSegmentRight) * .5f);
 				Gizmos.DrawLine(rightMiddle - (middleSegmentForward + middleSegmentRight) * .5f, rightMiddle - (middleSegmentForward - middleSegmentRight) * .5f);
-				if (aiSegment.walls.HasFlag(AI.AISegment.Wall.Right)) {
+				if ((aiSegment.walls & AI.AISegment.Wall.Right) > 0) {
 					Gizmos.color = new Color(.5f, 1, .75f);
 					Gizmos.DrawLine(aiSegment.right + Vector3.up, aiData.segments[connection].right + Vector3.up);
 				}
@@ -122,7 +122,7 @@ public class AIEditor : Editor {
 		EditorGUILayout.Space();
 
 		if (selectedSegmentIndex != -1) {
-			EditorGUILayout.LabelField($"Segment Info [{selectedSegmentIndex}]", EditorStyles.boldLabel);
+			EditorGUILayout.LabelField(String.Format("Segment Info [{0}]", selectedSegmentIndex), EditorStyles.boldLabel);
 			EditorGUI.indentLevel++;
 
 			AI.AISegment selectedSegment = aiData.segments[selectedSegmentIndex];
@@ -205,7 +205,8 @@ public class AIEditor : Editor {
 			GUIUtility.GetControlID(SurfaceHandle.hash, FocusType.Keyboard);
 
 			int controlId = GUIUtility.GetControlID(SurfaceHandle.hash, FocusType.Keyboard);
-			if (Physics.Raycast(r, out RaycastHit mouseHit)) {
+			RaycastHit mouseHit;
+			if (Physics.Raycast(r, out mouseHit)) {
 				switch (e.type) {
 					case EventType.MouseDown:
 						if (e.button == 0 || e.button == 1) {

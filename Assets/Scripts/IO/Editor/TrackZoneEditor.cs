@@ -178,6 +178,40 @@ public class TrackZoneEditor : Editor {
 		for (int i = 0; i < trackZoneData.zones.Count; i++) {
 			DoZone(i);
 		}
+
+		if (e.control) {
+			Ray r = HandleUtility.GUIPointToWorldRay(e.mousePosition);
+
+			int controlId = GUIUtility.GetControlID(SurfaceHandle.hash, FocusType.Keyboard);
+			RaycastHit mouseHit;
+			if (Physics.Raycast(r, out mouseHit)) {
+				switch (e.type) {
+					case EventType.MouseDown:
+						if (e.button == 0 || e.button == 1) {
+							EditorUtility.SetDirty(trackZoneData);
+							Undo.RecordObject(trackZoneData, "Add Zone");
+
+							selectedZoneIndex = trackZoneData.zones.Count;
+
+							trackZoneData.zones.Add(new TrackZone.Zone {
+								position = mouseHit.point,
+								rotationMatrix = Matrix4x4.identity,
+								scale = Vector3.one,
+								order = 0,
+							});
+						}
+						break;
+				}
+				Handles.color = Color.white;
+				Handles.DrawWireCube(mouseHit.point, Vector3.one);
+				Handles.color = new Color(1, 1, 1, .25f);
+				Handles.DrawWireCube(mouseHit.point, Vector3.one);
+
+				float handleSize = HandleUtility.GetHandleSize(mouseHit.point);
+				Handles.Button(mouseHit.point, Quaternion.identity, handleSize * .05f, handleSize * .1f, Handles.DotHandleCap);
+			}
+		}
+
 	}
 
 	private void DeleteNode(int zoneIndex) {

@@ -32,7 +32,8 @@ public class SurfaceHandle {
 				if (selected) {
 					Ray r = HandleUtility.GUIPointToWorldRay(e.mousePosition);
 
-					if (Physics.Raycast(r, out RaycastHit mouseHit)) {
+					RaycastHit mouseHit;
+					if (Physics.Raycast(r, out mouseHit)) {
 						position = mouseHit.point;
 					}
 				}
@@ -41,7 +42,8 @@ public class SurfaceHandle {
 				Vector3 rayToPoint = position - SceneView.currentDrawingSceneView.camera.transform.position;
 
 				bool onPoint = false;
-				if (Physics.Raycast(SceneView.currentDrawingSceneView.camera.transform.position, rayToPoint, out RaycastHit cameraHit)) {
+				RaycastHit cameraHit;
+				if (Physics.Raycast(SceneView.currentDrawingSceneView.camera.transform.position, rayToPoint, out cameraHit)) {
 					onPoint = Vector3.Distance(cameraHit.point, position) < 0.0001f;
 				}
 

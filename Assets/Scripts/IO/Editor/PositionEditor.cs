@@ -85,7 +85,7 @@ public class PositionEditor : Editor {
 		EditorGUILayout.Space();
 
 		if (selectedNodeIndex != -1) {
-			EditorGUILayout.LabelField($"Node Info [{selectedNodeIndex}]", EditorStyles.boldLabel);
+			EditorGUILayout.LabelField(String.Format("Node Info [{0}]", selectedNodeIndex), EditorStyles.boldLabel);
 			EditorGUI.indentLevel++;
 
 			bool selectedIsFinishLine = selectedNodeIndex == positionData.finishLineIndex;
@@ -123,7 +123,8 @@ public class PositionEditor : Editor {
 			Ray r = HandleUtility.GUIPointToWorldRay(e.mousePosition);
 			
 			int controlId = GUIUtility.GetControlID(SurfaceHandle.hash, FocusType.Keyboard);
-			if (Physics.Raycast(r, out RaycastHit mouseHit)) {
+			RaycastHit mouseHit;
+			if (Physics.Raycast(r, out mouseHit)) {
 				switch (e.type) {
 					case EventType.MouseDown:
 						if (e.button == 0 || e.button == 1) {
