@@ -21,6 +21,8 @@ Once the file is read as a model in Unity, drag the model into the scene, and th
 
 Add components to it via the *Inspector*: Position, AI, Track Zones (the order in which it is added do not matter)
 
+Add a *Mesh Collider* to the objects that are currently rendering the model (most likely not the root of the object, you may need to drill in the hierarchy to see the rendering ones). This allows to the mouse's position to be projected onto the mesh for the editor to work properly. It is much easier if the mesh is one whole rather than parts to make this step less tedious.
+
 > Now I don't know if it is me but after dragging it into the scene I had to rotate on the Y-axis by 180 degrees, you can check if everything is generally aligned by adding one Position point or AI segment, exporting it, and opening in the game's editor. But always make sure it lines up.
 
 ## Controls
