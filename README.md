@@ -1,7 +1,7 @@
 # Re-Volt Track Editor
 
 A Unity Addon Project  
-*(Name subject to change for something more catchy)*
+*(If you want to avoid having to download Unity and prefer a standalone version, try [here](https://github.com/FranklyGD/Re-Volt-Make-It-Better))*
 
 The aim is to help bring the editor out of the game's "`MAKEITGOOD`" mode and into a seperate application as an alternative track editing tool. The other reason is that the controls to create and edit tracks in the game as it stands is unintuitive as the controls are confusing.
 
